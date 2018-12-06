@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Weather App</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<title>Weather App</title>
 </head>
 <body>
-		<h1>Weekly Forecast:</h1>
-		<label for="input" class="input">
-		  <input type="text" id="input" placeholder="&nbsp;">
-		  <span class="label">Search</span>
-		  <span class="border"></span>
-		</label>
+		<h1 class="jello-vertical">Weekly Forecast:</h1>
+			<label for="input" class="input">
+			<!-- I know the label tag should go inside the form tag
+			but this lets me keep CSS simpler. (: -->
+			<form onsubmit="return getInfo()">
+			  <input type="text" id="input" placeholder="&nbsp;">
+			  <span class="label">Search</span>
+			  <span class="border"></span>
+			</form>
+			</label>
 		<div class="blurred-box">
 			<div class="forecastSummary">
 				<div class="weather-card">
@@ -129,6 +132,8 @@
 				</div>
 			</div>
 		</div>
-<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+		<p class="display"></p>
+<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+	<script type="text/javascript" src="./script.js"></script>
 </body>
 </html>
