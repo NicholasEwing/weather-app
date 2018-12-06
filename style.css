@@ -23,20 +23,89 @@ h1 {
 	font-family: "Comfortaa";
 	font-size: 5vw;
 	color: white;
+	text-shadow: 3px 3px 5px rgba(150, 150, 150, 1);
 }
 
-/*form input {
-	width: 80%;
-	margin: 1%;
-	padding: 1%;
-	font-size: 3vw;
-}*/
+.forecastSummary {
+	/*border: 15px solid rgba(255,255,255,1);*/
+	border-radius: 10px;
+	display: flex;
+	margin: 2%;
+	background-color: #8EC5FC;
+	background-image: -webkit-linear-gradient(62deg, #8EC5FC 11%, #E0C3FC 61%);
+	background-image: -moz-linear-gradient(62deg, #8EC5FC 11%, #E0C3FC 61%);
+	background-image: -o-linear-gradient(62deg, #8EC5FC 11%, #E0C3FC 61%);
+	background-image: linear-gradient(62deg, #8EC5FC 11%, #E0C3FC 61%);
+}
+
+.weather-card {
+	display: block;
+	position: relative;
+	border: 3px solid rgba(255,255,255,0.5);
+	/*border-radius: 10px;*/
+	width: 15%;
+	margin: 0.5%;
+	background-color: rgba(255,255,255,0.5);
+	box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.15);
+}
+
+.weather-card img {
+	max-width: 100%;
+}
+
+.red-dot {
+	position: absolute;
+	border-radius: 0% 100% 100% 0% / 0% 0% 100% 100%;
+	top: 0%;
+	left: 0%;
+	padding: 20px;
+	background: #ff3d3d;
+	box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.5);
+}
+
+.blue-dot {
+	position: absolute;
+	border-radius: 100% 0% 0% 100% / 0% 100% 0% 100%;
+	top: 0%;
+	right: 0%;
+	padding: 20px;
+	background: #488bf9;
+	box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.5);
+}
+
+.high {
+	color: white;
+	padding: 3%;
+	font-weight: 600;
+	position: relative;
+	float: left;
+	margin: 0;
+	font-family: "Open Sans";
+}
+
+.low {
+	color: white;
+	padding: 3%;
+	font-weight: 600;
+	position: relative;
+	float: right;
+	margin: 0 -2% 0 0;
+	font-family: "Open Sans";
+}
+
+.status h2 {
+	/*border-radius: 10px;*/
+	background-color: rgba(255,255,255,0.5);
+	box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.1);
+}
+
+/* CSS for input bar effects */
+
 
 .input {
 	position: relative;
 	margin: auto;
 	width: 80%;
-	/*max-width: 280px;*/
 }
 
 .input .label {
@@ -44,7 +113,7 @@ h1 {
 	top: 10%;
 	left: 0;
 	font-size: 3vw;
-	color: black;
+	color: rgba(255,255,255,0.5);
 	font-weight: 500;
 	transform-origin: 0 0;
 	transition: all 0.2s ease;
@@ -54,9 +123,9 @@ h1 {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 4px;
+	height: 3px;
 	width: 100%;
-	background: white;
+	background: rgba(255,255,255,0.5);
 	transform: scaleX(0);
 	transform-origin: 0 0;
 	transition: all 0.15s ease;
@@ -66,14 +135,15 @@ h1 {
 	-webkit-appearance: none;
 	width: 100%;
 	border: 0;
-	font-family: "Comfortaa";
+	font-family: "Open Sans";
 	padding: 12px 0;
 	font-size: 3vw;
 	font-weight: 500;
-	border-bottom: 4px solid black;
+	border-bottom: 3px solid rgba(255,255,255,0.5);
 	background: none;
 	border-radius: 0;
-	color: black;
+	color: white;
+	text-shadow: 3px 3px 5px rgba(150, 150, 150, 0.5);
 	transition: all 0.15s ease;
 }
 
@@ -82,8 +152,8 @@ h1 {
 }
 
 .input input:not(:placeholder-shown) + span {
-	color: black;
-	transform: translateY(-26px) scale(0.75);
+	color: white;
+	transform: translateY(-60%) scale(0.5);
 }
 
 .input input:focus {
@@ -93,41 +163,8 @@ h1 {
 
 .input input:focus + span {
 	color: white;
-	transform: translateY(-80%) scale(0.75);
+	transform: translateY(-60%) scale(0.5);
 }
 .input input:focus + span + .border {
  	transform: scaleX(1);
-}
-
-.forecastSummary {
-	display: flex;
-	margin: 2%;
-	background-color: black;
-}
-
-.weather-card {
-	width: 15%;
-	margin: 0.5%;
-	border: 1px solid green;
-	background-color: #F5F7FA;
-}
-
-.weather-card img {
-	max-width: 100%;
-}
-
-.high {
-	float: left;
-	margin: 5% 0 0 5%;
-}
-
-.low {
-	float: right;
-	margin: 5% 5% 0 0;
-}
-
-.status h2 {
-	-webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.75);
-	-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.75);
 }
