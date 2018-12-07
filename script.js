@@ -1,15 +1,17 @@
 // Create event listener
-document.querySelector("input").addEventListener("submit", getInfo);
+var input = document.querySelector("input").addEventListener("submit", getInfo);
+
 
 function getInfo(){
+	var inputVal = document.querySelector("input").value;
 	// Create XHR Object
 	var request = new XMLHttpRequest();
-	var display = document.querySelector(".display")
+	var display = document.querySelector(".display");
 
 	// OPEN - type, url/file, async
 	// This free API key will totally appear on Github, but that's okay for now
 	// Will change later and add to ENV variables on Heroku
-	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=Charlotte&id=524901&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
+	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
 
 	// OPTIONAL - used for loaders
 	request.onprogress = function() {
@@ -21,20 +23,15 @@ function getInfo(){
 			var weekday = weekdaysRef();
 			var res = JSON.parse(this.responseText);
 			var forecast = buildForecast(res);
+			console.log(forecast);
+
+			var daysSorted = sortDays(res);
+			var recordTemps = getRecordTemps(daysSorted);
 
 			replaceWeatherText(forecast);
 			replaceWeekdayText(forecast);
 			replaceImages(forecast);
-
-			var daysSorted = sortDays(res);
-			var recordTemps = getRecordTemps(daysSorted);
-			console.log(recordTemps);
-			// replace temperatures
-			var high = document.querySelectorAll(".high");
-			var low = document.querySelectorAll(".low");
-			high.forEach(function(highText, i) {
-				highText.innerHTML = "TEST";
-			});
+			replaceTemps(recordTemps);
 
 		} else if(this.status === 404) {
 			console.log("error occurred!");
@@ -53,8 +50,7 @@ function getInfo(){
 }
 
 function buildForecast(res) {
-	var weekday = weekdaysRef();
-
+	var weekday = weekdaysRef()
 	var weekdayFound = new Array(7);
 	for(var i = 0; i < weekdayFound.length; i++) {
 		weekdayFound[i] = false;
@@ -73,7 +69,7 @@ function buildForecast(res) {
 		// if that day has NOT been found...
 		if(!weekdayFound[day]) {
 			// find the element at 5PM, unless it's today
-			if(element.dt_txt.includes("18:00:00") || weekdayFound[day] === weekdayFound[today]) {
+			if(element.dt_txt.includes("18:00:00") || weekday[day] === weekday[today]) {
 				// ...add that day's info to the forecast array
 				forecast.push(element);
 				// then mark that day as "found"
@@ -103,10 +99,22 @@ function replaceWeekdayText(forecast) {
 }
 
 function replaceImages(forecast) {
-	var icons = document.querySelectorAll(".icon");
+	var icons = document.querySelectorAll("i");
 	icons.forEach(function(icon, i){
-		var weatherIcon = forecast[i].weather[0].icon;
-		icon.src = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+		var weatherCode = forecast[i].weather[0].id;
+		icon.className = "wi wi-owm-" + weatherCode;
+	});
+}
+
+function replaceTemps(recordTemps) {
+	var high = document.querySelectorAll(".high");
+	var low = document.querySelectorAll(".low");
+	high.forEach(function(highText, i) {
+		highText.innerHTML = Math.round(recordTemps[i].high) + "°";
+	});
+
+	low.forEach(function(lowText, i) {
+		lowText.innerHTML = Math.round(recordTemps[i].low) + "°";
 	});
 }
 
@@ -121,15 +129,27 @@ function sortDays(res) {
 
 	var dayCount = 0;
 	var correctedIndex = 0;
-
 	// I can't rely on i here because sometimes the current
-	// day will get back 2, 3, or 4 elements. I need to start
+	// day will send back 2, 3, or 4 elements. I need to start
 	// counting once there are no longer any "today" elements.
 
+	// Also, I should come up with a better name for the
+	// weather objects from the API. "Elements" is not
+	// an intuitive term.
 	res.list.forEach(function(element, i) {
+		//TODO: This might break again. 
+		// After 4PM local, the API will not return data for the current day.
+
+		// Fix this by finding a way to handle that case
 		var day = new Date(element.dt*1000).getDay();
 		if (day === today) {
 			daysArray[dayCount].push(element);
+		} else if (i === 0){
+			// If the API doesn't pull current day, this keeps stuff from breaking
+			// Probably a more elegant solution than this
+			daysArray[dayCount].push(element);
+			dayCount += 1;
+			correctedIndex += 1;
 		} else if (correctedIndex % 8 === 0){
 			dayCount += 1;
 			correctedIndex += 1;
@@ -187,7 +207,7 @@ function getRecordTemps(daysSorted) {
 		});
 
 	});
-	
+
 	return recordTemps;
 }
 
