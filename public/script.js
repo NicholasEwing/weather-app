@@ -1,6 +1,8 @@
-// Create event listener
 var input = document.querySelector("input").addEventListener("submit", getInfo);
 
+// ----------------------------------------------------------------------------
+// Main function that runs on search
+// ----------------------------------------------------------------------------
 
 function getInfo(){
 	var inputElement = document.querySelector("input");
@@ -9,14 +11,8 @@ function getInfo(){
 	var request = new XMLHttpRequest();
 	var display = document.querySelector(".display");
 
-	// OPEN - type, url/file, async
 	// This free API key will totally appear on Github, but that's okay for this tiny project.
 	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
-
-	// OPTIONAL - used for loaders
-	request.onprogress = function() {
-		// might add loader later
-	}
 
 	request.onload = function() {
 		if(this.status === 200) {
@@ -26,9 +22,9 @@ function getInfo(){
 			h1.parentNode.replaceChild(newh1, h1);
 
 			var weekday = weekdaysRef();
+
 			var res = JSON.parse(this.responseText);
 			var forecast = buildForecast(res);
-
 			var daysSorted = sortDays(res);
 			var recordTemps = getRecordTemps(daysSorted);
 
@@ -52,6 +48,13 @@ function getInfo(){
 	// Prevents page from refreshing on submit
 	return false;
 }
+
+
+
+
+// ----------------------------------------------------------------------------
+// Builds a forecast using the response data from the OpenWeatherAPI
+// ----------------------------------------------------------------------------
 
 function buildForecast(res) {
 	var weekday = weekdaysRef()
@@ -78,9 +81,15 @@ function buildForecast(res) {
 			}
 		}
 	});
-
 	return forecast;
 }
+
+
+
+
+// ----------------------------------------------------------------------------
+// replaces weather text based on API response
+// ----------------------------------------------------------------------------
 
 function replaceWeatherText(forecast) {
 	var weatherText = document.querySelectorAll(".weather-text");
@@ -89,6 +98,12 @@ function replaceWeatherText(forecast) {
 		text.innerHTML = forecastWeatherText;
 	});
 }
+
+
+
+// ----------------------------------------------------------------------------
+// replaces weekday text based on API response
+// ----------------------------------------------------------------------------
 
 function replaceWeekdayText(forecast) {
 	var weekday = weekdaysRef();
@@ -99,6 +114,13 @@ function replaceWeekdayText(forecast) {
 	});
 }
 
+
+
+
+// ----------------------------------------------------------------------------
+// replaces images based on API response
+// ----------------------------------------------------------------------------
+
 function replaceImages(forecast) {
 	var icons = document.querySelectorAll("i");
 	icons.forEach(function(icon, i){
@@ -106,6 +128,13 @@ function replaceImages(forecast) {
 		icon.className = "wi wi-owm-" + weatherCode;
 	});
 }
+
+
+
+
+// ----------------------------------------------------------------------------
+// replaces high and low temps based on API response
+// ----------------------------------------------------------------------------
 
 function replaceTemps(recordTemps) {
 	var high = document.querySelectorAll(".high");
@@ -120,6 +149,12 @@ function replaceTemps(recordTemps) {
 }
 
 
+
+
+// ----------------------------------------------------------------------------
+// Takes the API response of various 3 hr increments and breaks it into separate days
+// ----------------------------------------------------------------------------
+
 function sortDays(res) {
 	var today = new Date(Date.now()).getDay();
 
@@ -130,13 +165,7 @@ function sortDays(res) {
 
 	var dayCount = 0;
 	var correctedIndex = 0;
-	// I can't rely on i here because sometimes the current
-	// day will send back 2, 3, or 4 elements. I need to start
-	// counting once there are no longer any "today" elements.
 
-	// Also, I should come up with a better name for the
-	// weather objects from the API. "Elements" is not
-	// an intuitive term.
 	res.list.forEach(function(element, i) {
 		// After 4PM local, the API will not return data for the current day.
 		var day = new Date(element.dt*1000).getDay();
@@ -159,6 +188,13 @@ function sortDays(res) {
 	return daysArray;
 }
 
+
+
+
+// ----------------------------------------------------------------------------
+// Takes the result of sortDays() and finds the highest / lowest temps for each day
+// ----------------------------------------------------------------------------
+
 function getRecordTemps(daysSorted) {
 	// Big issue - the "high" and "low" for the current day
 	// will always be very close to one another since the API only pulls
@@ -177,8 +213,6 @@ function getRecordTemps(daysSorted) {
 	var weekday = weekdaysRef();
 	var recordTemps = [];
 	daysSorted.forEach(function(day, i) {
-		// Setting temps to crazy numbers in case the "high" 
-		// for a day is negative or if the "low" for a day is very high
 		var highestTemp = -1000;
 		var lowestTemp = 1000;
 		var storedDay = "";
@@ -208,6 +242,13 @@ function getRecordTemps(daysSorted) {
 	return recordTemps;
 }
 
+
+
+
+// ----------------------------------------------------------------------------
+// Commonly used array throughout the program. Turns day number into string.
+// ----------------------------------------------------------------------------
+
 function weekdaysRef() {
 	var weekday = new Array(7);
 	weekday[0]="Sunday";
@@ -219,6 +260,13 @@ function weekdaysRef() {
 	weekday[6]="Saturday";
 	return weekday;
 }
+
+
+
+
+// ----------------------------------------------------------------------------
+// Returns "foo bar" as "Foo Bar". Used to format weather descriptions.
+// ----------------------------------------------------------------------------
 
 function titleize(sentence) {
     if(!sentence.split) return sentence;
