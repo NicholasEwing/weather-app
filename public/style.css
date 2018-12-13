@@ -271,8 +271,16 @@ h1 {
 		padding: 40px;
 	}
 
+	.weekday {
+		font-size: 6vw;
+	}
+
+	.weather-text {
+		font-size: 5vw;
+	}
+
 	.high, .low {
-		font-size: 4.5vw;
+		font-size: 4vw;
 		margin-top: 0.75%;
     	margin-right: 0.5%;
 	}
