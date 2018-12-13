@@ -12,7 +12,7 @@ function getInfo(){
 	// OPEN - type, url/file, async
 	// This free API key will totally appear on Github, but that's okay for now
 	// Will change later and add to ENV variables on Heroku
-	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
+	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=${process.ENV.API_KEY}`);
 
 	// OPTIONAL - used for loaders
 	request.onprogress = function() {

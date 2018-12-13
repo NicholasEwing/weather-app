@@ -1,0 +1,23 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A one-page weather app that displays a 5-day forecast for a given city and country code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasewing/weather-app.git"
+  },
+  "author": "Nicholas Ewing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholasewing/weather-app/issues"
+  },
+  "homepage": "https://github.com/nicholasewing/weather-app#readme",
+  "dependencies": {
+    "node-static": "^0.7.11"
+  },
+  "devDependencies": {}
+}
