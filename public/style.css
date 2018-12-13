@@ -250,7 +250,7 @@ h1 {
   }
 }
 
-@media all and (max-width: 850px){
+@media all and (max-width: 1200px){
 	.forecast-summary {
 		flex-direction: column;
 	}
