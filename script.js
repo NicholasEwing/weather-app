@@ -25,12 +25,10 @@ function getInfo(){
 			var h1 = document.querySelector("h1");
 			var newh1 = h1.cloneNode(true);
 			h1.parentNode.replaceChild(newh1, h1);
-			forecastSum.parentNode.replaceChild(newForecastSum, forecastSum);
 
 			var weekday = weekdaysRef();
 			var res = JSON.parse(this.responseText);
 			var forecast = buildForecast(res);
-			console.log(forecast);
 
 			var daysSorted = sortDays(res);
 			var recordTemps = getRecordTemps(daysSorted);
@@ -62,8 +60,6 @@ function buildForecast(res) {
 	for(var i = 0; i < weekdayFound.length; i++) {
 		weekdayFound[i] = false;
 	}
-
-	console.log(res);
 
 	var forecast = [];
 
