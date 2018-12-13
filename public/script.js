@@ -12,7 +12,7 @@ function getInfo(){
 	var display = document.querySelector(".display");
 
 	// This free API key will totally appear on Github, but that's okay for this tiny project.
-	request.open("GET", `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
+	request.open("GET", `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=b8ba6a5354fa2d7a2da256dba787205d`);
 
 	request.onload = function() {
 		if(this.status === 200) {
