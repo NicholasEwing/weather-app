@@ -1,6 +1,8 @@
 Weather App
 ===========
 
+[Click here to try a live demo!](https://weather-app-by-nicholas-ewing.herokuapp.com/)
+
 This weather app utilizes the OpenWeatherMap's API service and allows users to find the weekly forecast at any valid address entered into the search bar.
 
 This app was made with the following:
