@@ -4,6 +4,7 @@
   "description": "A one-page weather app that displays a 5-day forecast for a given city and country code.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
