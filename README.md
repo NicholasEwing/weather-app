@@ -8,3 +8,7 @@ This app was made with the following:
 * CSS3
 * JavaScript
 * AJAX API calls
+
+## Resources Used:
+* [OpenWeatherMapAPI](https://openweathermap.org/api)
+* Weather icons designed by [Erik Flowers](https://erikflowers.github.io/weather-icons/)
