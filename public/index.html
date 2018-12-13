@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans" rel="stylesheet">
+	<title>Weather App</title>
+</head>
+<body>
+		<h1 class="jello-vertical">5 Day Weather Forecast:</h1>
+			<label for="input" class="input">
+			<!-- I know the label tag should go inside the form tag
+			but this lets me keep CSS simpler. (: -->
+			<form onsubmit="return getInfo()">
+			  <input type="text" id="search" placeholder="&nbsp;">
+			  <span class="label">Search</span>
+			  <span class="border"></span>
+			</form>
+			</label>
+		<p class="help-text">Must search in the following format: {City}, {Country}.</p>
+		<p class="help-text">Example: Chapel Hill, US</p>
+		<div class="forecast-summary">
+			<div class="weather-card">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+				<div class="tempatures">
+					<span class="high">--°</span>
+					<span class="low">--°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">---</p>
+				</div>
+			</div>
+
+			<div class="weather-card">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+				<div class="tempatures">
+					<span class="high">--°</span>
+					<span class="low">--°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">---</p>
+				</div>
+			</div>
+
+			<div class="weather-card">
+				<div class="tempatures">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+					<span class="high">--°</span>
+					<span class="low">--°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">---</p>
+				</div>
+			</div>
+
+			<div class="weather-card">
+				<div class="tempatures">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+					<span class="high">--°</span>
+					<span class="low">--°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">---</p>
+				</div>
+			</div>
+
+			<div class="weather-card">
+				<div class="tempatures">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+					<span class="high">--°</span>
+					<span class="low">--°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">---</p>
+				</div>
+			</div>
+
+<!-- 				<div class="weather-card">
+				<div class="tempatures">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+					<span class="high">50°</span>
+					<span class="low">30°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">Raining</p>
+				</div>
+			</div>
+
+			<div class="weather-card">
+				<div class="tempatures">
+				<div class="red-dot"></div>
+				<div class="blue-dot"></div>
+					<span class="high">50°</span>
+					<span class="low">30°</span>
+				</div>
+					<i class=""></i>
+				<div>
+				</div>
+				<div>
+					<h2 class="weekday">----</h2>
+					<p class="weather-text">Raining</p>
+				</div>
+			</div> -->
+		</div>
+		<p class="display"></p>
+<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+	<script type="text/javascript" src="./script.js"></script>
+</body>
+</html>
