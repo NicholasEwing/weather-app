@@ -3,7 +3,8 @@ var input = document.querySelector("input").addEventListener("submit", getInfo);
 
 
 function getInfo(){
-	var inputVal = document.querySelector("input").value;
+	var inputElement = document.querySelector("input");
+	var inputVal = inputElement.value.replace(/\s/g, "");
 	// Create XHR Object
 	var request = new XMLHttpRequest();
 	var display = document.querySelector(".display");
@@ -20,6 +21,12 @@ function getInfo(){
 
 	request.onload = function() {
 		if(this.status === 200) {
+			// replay jello animation on search
+			var h1 = document.querySelector("h1");
+			var newh1 = h1.cloneNode(true);
+			h1.parentNode.replaceChild(newh1, h1);
+			forecastSum.parentNode.replaceChild(newForecastSum, forecastSum);
+
 			var weekday = weekdaysRef();
 			var res = JSON.parse(this.responseText);
 			var forecast = buildForecast(res);
@@ -28,10 +35,10 @@ function getInfo(){
 			var daysSorted = sortDays(res);
 			var recordTemps = getRecordTemps(daysSorted);
 
-			replaceWeatherText(forecast);
-			replaceWeekdayText(forecast);
-			replaceImages(forecast);
 			replaceTemps(recordTemps);
+			replaceImages(forecast);
+			replaceWeekdayText(forecast);
+			replaceWeatherText(forecast);
 
 		} else if(this.status === 404) {
 			console.log("error occurred!");
@@ -56,17 +63,16 @@ function buildForecast(res) {
 		weekdayFound[i] = false;
 	}
 
+	console.log(res);
+
 	var forecast = [];
 
-	// make forecast!
 	res.list.forEach(function(element) {
 		//find day of the element
 		var day = new Date(element.dt*1000).getDay();
 		var hour = new Date(element.dt*1000).getHours();
 		var today = new Date(Date.now()).getDay();
 
-		// TODO: Reduce days down to 5 or 6
-		// if that day has NOT been found...
 		if(!weekdayFound[day]) {
 			// find the element at 5PM, unless it's today
 			if(element.dt_txt.includes("18:00:00") || weekday[day] === weekday[today]) {
@@ -84,7 +90,7 @@ function buildForecast(res) {
 function replaceWeatherText(forecast) {
 	var weatherText = document.querySelectorAll(".weather-text");
 	weatherText.forEach(function(text, i) {
-		var forecastWeatherText = forecast[i].weather[0].description;
+		var forecastWeatherText = titleize(forecast[i].weather[0].description);
 		text.innerHTML = forecastWeatherText;
 	});
 }
@@ -137,16 +143,12 @@ function sortDays(res) {
 	// weather objects from the API. "Elements" is not
 	// an intuitive term.
 	res.list.forEach(function(element, i) {
-		//TODO: This might break again. 
 		// After 4PM local, the API will not return data for the current day.
-
-		// Fix this by finding a way to handle that case
 		var day = new Date(element.dt*1000).getDay();
 		if (day === today) {
 			daysArray[dayCount].push(element);
 		} else if (i === 0){
-			// If the API doesn't pull current day, this keeps stuff from breaking
-			// Probably a more elegant solution than this
+			// If the API doesn't pull current day, then continue to other days
 			daysArray[dayCount].push(element);
 			dayCount += 1;
 			correctedIndex += 1;
@@ -175,7 +177,7 @@ function getRecordTemps(daysSorted) {
 	// This would be fixed if I paid money for the premium API service
 	// since it gives the high and low average for the entire day.
 
-	// But alas, I am broke. I'll try to find a creative solution.
+	// But alas, I am broke.
 
 	var weekday = weekdaysRef();
 	var recordTemps = [];
@@ -221,4 +223,16 @@ function weekdaysRef() {
 	weekday[5]="Friday";
 	weekday[6]="Saturday";
 	return weekday;
+}
+
+function titleize(sentence) {
+    if(!sentence.split) return sentence;
+    var _titleizeWord = function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        },
+        result = [];
+    sentence.split(" ").forEach(function(w) {
+        result.push(_titleizeWord(w));
+    });
+    return result.join(" ");
 }

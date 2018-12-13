@@ -30,7 +30,15 @@ h1 {
 	text-shadow: 3px 3px 5px rgba(150, 150, 150, 1);
 }
 
-.forecastSummary {
+.help-text {
+	font-family: "Comfortaa";
+	margin: 1% 0 0 0;
+	font-size: 1vw;
+	color: white;
+	text-shadow: 3px 3px 5px rgba(150, 150, 150, 1);
+}
+
+.forecast-summary {
 	border-radius: 10px;
 	display: flex;
 	margin: 2%;
@@ -55,7 +63,7 @@ h1 {
 	margin: 10%;
 	padding-right: 10%;
 	padding-left: 10%;
-	/*padding-bottom: 10%;*/
+	color: #4a148c8a;
 	font-size: 8vw;
 }
 
