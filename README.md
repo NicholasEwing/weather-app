@@ -1,5 +1,8 @@
 Weather App
 ===========
+TODO: Move this app from node-static to Express
+
+This demo may be experiencing issues - thanks for your patience!
 
 [Click here to try a live demo!](https://weather-app-by-nicholas-ewing.herokuapp.com/)
 
