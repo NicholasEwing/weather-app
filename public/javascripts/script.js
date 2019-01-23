@@ -13,7 +13,7 @@ function getInfo() {
 
   request.open(
     "GET",
-    `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=0b795233cfaf33a27ed95301eea3412c
+    `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&APPID=0b795233cfaf33a27ed95301eea3412c
 `
   );
 
