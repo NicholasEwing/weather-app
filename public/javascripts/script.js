@@ -8,7 +8,6 @@ const input = document
 function getInfo() {
   const inputElement = document.querySelector("input");
   const inputVal = inputElement.value.replace(/\s*,\s*/g, ",");
-  console.log(inputVal);
   // Create XHR Object
   const request = new XMLHttpRequest();
 
@@ -24,13 +23,11 @@ function getInfo() {
       const h1 = document.querySelector("h1");
       h1.classList.remove("jello-vertical");
       h1.classList.add("jello-vertical");
-      const newh1 = h1.cloneNode(true);
-      h1.parentNode.replaceChild(newh1, h1);
 
-      var res = JSON.parse(this.responseText);
-      var forecast = buildForecast(res);
-      var daysSorted = sortDays(res);
-      var recordTemps = getRecordTemps(daysSorted);
+      const res = JSON.parse(this.responseText);
+      const forecast = buildForecast(res);
+      const daysSorted = sortDays(res);
+      const recordTemps = getRecordTemps(daysSorted);
 
       replaceTemps(recordTemps);
       replaceImages(forecast);
@@ -57,19 +54,19 @@ function getInfo() {
 // ----------------------------------------------------------------------------
 
 function buildForecast(res) {
-  var weekday = weekdaysRef();
-  var weekdayFound = new Array(7);
-  for (var i = 0; i < weekdayFound.length; i++) {
+  const weekday = weekdaysRef();
+  let weekdayFound = new Array(7);
+  for (let i = 0; i < weekdayFound.length; i++) {
     weekdayFound[i] = false;
   }
 
-  var forecast = [];
+  let forecast = [];
 
   res.list.forEach(function(element) {
     //find day of the element
-    var day = new Date(element.dt * 1000).getDay();
-    var hour = new Date(element.dt * 1000).getHours();
-    var today = new Date(Date.now()).getDay();
+    const day = new Date(element.dt * 1000).getDay();
+    const hour = new Date(element.dt * 1000).getHours();
+    const today = new Date(Date.now()).getDay();
 
     if (!weekdayFound[day]) {
       // find the element at 5PM, unless it's today
@@ -92,9 +89,9 @@ function buildForecast(res) {
 // ----------------------------------------------------------------------------
 
 function replaceWeatherText(forecast) {
-  var weatherText = document.querySelectorAll(".weather-text");
+  const weatherText = document.querySelectorAll(".weather-text");
   weatherText.forEach(function(text, i) {
-    var forecastWeatherText = titleize(forecast[i].weather[0].description);
+    const forecastWeatherText = titleize(forecast[i].weather[0].description);
     text.innerHTML = forecastWeatherText;
   });
 }
@@ -104,10 +101,10 @@ function replaceWeatherText(forecast) {
 // ----------------------------------------------------------------------------
 
 function replaceWeekdayText(forecast) {
-  var weekday = weekdaysRef();
-  var weekdayText = document.querySelectorAll(".weekday");
+  const weekday = weekdaysRef();
+  const weekdayText = document.querySelectorAll(".weekday");
   weekdayText.forEach(function(day, i) {
-    var forecastWeekday = weekday[new Date(forecast[i].dt * 1000).getDay()];
+    const forecastWeekday = weekday[new Date(forecast[i].dt * 1000).getDay()];
     day.innerHTML = forecastWeekday;
   });
 }
@@ -117,9 +114,9 @@ function replaceWeekdayText(forecast) {
 // ----------------------------------------------------------------------------
 
 function replaceImages(forecast) {
-  var icons = document.querySelectorAll("i");
+  const icons = document.querySelectorAll("i");
   icons.forEach(function(icon, i) {
-    var weatherCode = forecast[i].weather[0].id;
+    const weatherCode = forecast[i].weather[0].id;
     icon.className = "wi wi-owm-" + weatherCode;
   });
 }
@@ -129,8 +126,8 @@ function replaceImages(forecast) {
 // ----------------------------------------------------------------------------
 
 function replaceTemps(recordTemps) {
-  var high = document.querySelectorAll(".high");
-  var low = document.querySelectorAll(".low");
+  const high = document.querySelectorAll(".high");
+  const low = document.querySelectorAll(".low");
   high.forEach(function(highText, i) {
     highText.innerHTML = Math.round(recordTemps[i].high) + "°";
   });
@@ -145,19 +142,19 @@ function replaceTemps(recordTemps) {
 // ----------------------------------------------------------------------------
 
 function sortDays(res) {
-  var today = new Date(Date.now()).getDay();
+  const today = new Date(Date.now()).getDay();
 
-  var daysArray = [];
-  for (var i = 0; i < 6; i++) {
+  let daysArray = [];
+  for (let i = 0; i < 6; i++) {
     daysArray[i] = [];
   }
 
-  var dayCount = 0;
-  var correctedIndex = 0;
+  let dayCount = 0;
+  let correctedIndex = 0;
 
   res.list.forEach(function(element, i) {
     // After 4PM local, the API will not return data for the current day.
-    var day = new Date(element.dt * 1000).getDay();
+    let day = new Date(element.dt * 1000).getDay();
     if (day === today) {
       daysArray[dayCount].push(element);
     } else if (i === 0) {
@@ -196,14 +193,14 @@ function getRecordTemps(daysSorted) {
 
   // But alas, I am broke.
 
-  var weekday = weekdaysRef();
-  var recordTemps = [];
+  const weekday = weekdaysRef();
+  let recordTemps = [];
   daysSorted.forEach(function(day, i) {
-    var highestTemp = -1000;
-    var lowestTemp = 1000;
-    var storedDay = "";
+    const highestTemp = -1000;
+    const lowestTemp = 1000;
+    const storedDay = "";
     day.forEach(function(element, j) {
-      var temp = element.main.temp;
+      const temp = element.main.temp;
       if (temp > highestTemp) {
         highestTemp = temp;
       }
@@ -232,7 +229,7 @@ function getRecordTemps(daysSorted) {
 // ----------------------------------------------------------------------------
 
 function weekdaysRef() {
-  var weekday = new Array(7);
+  const weekday = new Array(7);
   weekday[0] = "Sunday";
   weekday[1] = "Monday";
   weekday[2] = "Tuesday";
@@ -249,7 +246,7 @@ function weekdaysRef() {
 
 function titleize(sentence) {
   if (!sentence.split) return sentence;
-  var _titleizeWord = function(string) {
+  const _titleizeWord = function(string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     },
     result = [];
