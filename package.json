@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.0.0",
   "private": true,
-  "scripts" : {
+  "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
