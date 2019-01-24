@@ -196,11 +196,11 @@ function getRecordTemps(daysSorted) {
   const weekday = weekdaysRef();
   let recordTemps = [];
   daysSorted.forEach(function(day, i) {
-    const highestTemp = -1000;
-    const lowestTemp = 1000;
-    const storedDay = "";
+    let highestTemp = -1000;
+    let lowestTemp = 1000;
+    let storedDay = "";
     day.forEach(function(element, j) {
-      const temp = element.main.temp;
+      let temp = element.main.temp;
       if (temp > highestTemp) {
         highestTemp = temp;
       }
